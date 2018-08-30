@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My map</title>
+  <link rel='stylesheet' type='text/css' href='sdk/map.css' />
+  <script src='sdk/tomtom.min.js'></script>
+  <style>
+    body {
+      width: auto;
+      height: auto;
+      margin-top: 150px;
+      text-align: center;
+    }
+
+    #map {
+      float: right;
+      width: 30%;
+      height: 400px;
+    }
+
+    #text {
+      float: left;
+      width: 70%;
+      font-size: 25px;
+    }
+
+    #header {
+      font-size: 25px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header">
+    <h1>Speedy's pizza - Best pizza in town!</h1>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis,
+      turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue
+      lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa
+      nibh nec erat.
+    </p>
+
+  </div>
+  <div id='text'>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis,
+      turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue
+      lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa
+      nibh nec erat.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis,
+      turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue
+      lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa
+      nibh nec erat.
+    </p>
+  </div>
+  <div id='map'></div>
+  <script>
+    var speedyPizzaCoordinates = [37.36729, -121.91595];
+
+    var map = tomtom.L.map('map', {
+      key: '<your-api-key>',
+      basePath: 'sdk',
+      center: speedyPizzaCoordinates,
+      zoom: 15
+    });
+
+    var marker = tomtom.L.marker(speedyPizzaCoordinates, {
+      icon: tomtom.L.icon({
+        iconUrl: 'sdk/../img/pizza_marker.png',
+        iconSize: [50, 75],
+        iconAnchor: [17, 70],
+        popupAnchor: [12, -80]
+      })
+    }).addTo(map);
+
+    var customPopup = '<p style="display:inline">' +
+      '<img src="sdk/../img/pizza_oven_illustration.png" alt="pizza oven" style="width:50%;float:right;padding-top:10px">' +
+      '<div style="width:50%; height:100%; padding-top:10px"><span style="font:14px Gotham">Speedy&#39s pizza</span></br>' +
+      '<div style="font:9px Gotham"><span style="color:grey">In 30 minutes at your place!</span><div><br/>' +
+      '<span style="font:10px Gotham">100 Century Center Ct 210, San Jose, CA 95112<br/>USA</span></br>' +
+      '</div></p>'
+
+    marker.bindPopup(customPopup).addTo(map).openPopup();
+  </script>
+</body>
+</html>
