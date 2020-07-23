@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Speedy&#39;s pizza</title>
-  <link rel='stylesheet' type='text/css' href='sdk/map.css' />
-  <script src='sdk/tomtom.min.js'></script>
+  <title>companylocationeasy</title>
+  <meta charset="UTF-8">
+  <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.1.0/maps/maps.css'/>
+  <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.1.0/maps/maps-web.min.js'></script>
   <style>
     body {
       width: 100%;
@@ -17,42 +17,49 @@
       width: 100vw;
       height: 100vh;
     }
+
+    #marker {
+      background-image: url('img/pizza_marker.png');
+      background-size: cover;
+      width: 50px;
+      height: 70px;
+    }
   </style>
-</head>
 
-<body>
-  <div id='map'></div>
-  <script>
-    var speedyPizzaCoordinates = [37.36729, -121.91595];
+  <body>
+    <div id='map'></div>
+    <script>
+      var speedyPizzaCoordinates = [-121.91595, 37.36729];
 
-    var map = tomtom.L.map('map', {
-      key: '<your-api-key>',
-      basePath: 'sdk',
-      center: speedyPizzaCoordinates,
-      zoom: 15
-    });
+      var map = tt.map({
+        container: 'map',
+        key: '<your-api-key>',
+        center: speedyPizzaCoordinates,
+        zoom: 15
+      });
 
-    var marker = tomtom.L.marker(speedyPizzaCoordinates, {
-      icon: tomtom.L.icon({
-        iconUrl: 'img/pizza_marker.png',
-        iconSize: [50, 75],
-        iconAnchor: [17, 70],
-        popupAnchor: [12, -80]
-      })
-    }).addTo(map);
+      var element = document.createElement('div');
+      element.id = 'marker';
 
-    var customPopup = '<p style="display:inline">' +
-      '<img src="img/pizza_oven_illustration.png"' +
-      'alt="pizza oven" style="width:50%;float:right;padding-top:10px">' +
-      '<div style="width:50%; height:100%; padding-top:10px">' +
-      '<span style="font-size:18px">Speedy&#39s pizza</span></br>' +
-      '<div><span style="color:grey">' +
-      'In 30 minutes at your place!</span></div><br/>' +
-      '<span>100 Century Center Ct 210, San Jose, CA 95112</br>USA</span></br>' +
-      '</p>'
+      var marker = new tt.Marker({element: element}).setLngLat(speedyPizzaCoordinates).addTo(map);
+      var popupOffsets = {
+        top: [0, 0],
+        bottom: [0, -70],
+        'bottom-right': [0, -70],
+        'bottom-left': [0, -70],
+        left: [25, -35],
+        right: [-25, -35]
+      }
 
-    marker.bindPopup(customPopup).addTo(map).openPopup();
-  </script>
-</body>
+      var customPopup = '<p style="display:inline">' +
+      '<img src="img/pizza_oven_illustration.png" alt="pizza oven" style="width:50%;float:right;padding-top:10px">' +
+      '<div style="width:50%; height:100%; padding-top:10px"><span style="font:14px Gotham">Speedy&#39s pizza</span></br>' +
+      '<div style="font:9px Gotham"><span style="color:grey">In 30 minutes at your place!</span><div><br/>' +
+      '<span style="font:10px Gotham">100 Century Center Ct 210, San Jose, CA 95112<br/>USA</span></br>' +
+      '</div></p>';
 
+      var popup = new tt.Popup({offset: popupOffsets}).setHTML(customPopup);
+      marker.setPopup(popup).togglePopup();
+    </script>
+  </body>
 </html>

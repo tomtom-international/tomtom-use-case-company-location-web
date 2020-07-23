@@ -3,8 +3,8 @@
 <head>
   <title>companylocationeasy</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="sdk/map.css" />
-  <script src="sdk/tomtom.min.js"></script>
+  <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.1.0/maps/maps.css'/>
+  <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.1.0/maps/maps-web.min.js'></script>
   <style>
     body {
       width: 100%;
@@ -22,17 +22,27 @@
   <body>
     <div id='map'></div>
     <script>
-      var speedyPizzaCoordinates = [37.36729, -121.91595];
+      var speedyPizzaCoordinates = [-121.91595, 37.36729];
 
-      var map = tomtom.L.map('map', {
+      var map = tt.map({
+        container: 'map',
         key: '<your-api-key>',
-        basePath: 'sdk',
         center: speedyPizzaCoordinates,
         zoom: 15
       });
 
-      var marker = tomtom.L.marker(speedyPizzaCoordinates).addTo(map);
-      marker.bindPopup("<b>Speedy's pizza</b><br/>100 Century Center Ct 210, San Jose, CA 95112, USA").openPopup();
+      var marker = new tt.Marker().setLngLat(speedyPizzaCoordinates).addTo(map);
+      var popupOffsets = {
+        top: [0, 0],
+        bottom: [0, -70],
+        'bottom-right': [0, -70],
+        'bottom-left': [0, -70],
+        left: [25, -35],
+        right: [-25, -35]
+      }
+
+      var popup = new tt.Popup({offset: popupOffsets}).setHTML("<b>Speedy's pizza</b><br/>100 Century Center Ct 210, San Jose, CA 95112, USA");
+      marker.setPopup(popup).togglePopup();
     </script>
   </body>
 </html>
